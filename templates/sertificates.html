@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sertificat</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-wrap-bg">
+            <div class="container">
+                <div class="header-wrap">
+                    <div class="logo">
+                        <img src="{% static 'img/logo.png' %}" alt="logo">
+                    </div>
+                    <div class="logo-content">
+                        {% if request.user.is_authenticated %}
+                        <div class="text">{{ request.user.username }}</div>
+                        {% comment %}<img src="{% static 'img/monro.png' %}" alt="foto">{% endcomment %}
+                            <div class="text"><a class="nav-link" style="" href="{% url 'logout' %}">Logout</a></div>
+                        <div class="money">100$</div>
+                        {% else %}
+                            <div class="text"><a href="{% url 'login' %}" class="nav-link">Login</a></div>
+                            <div class="text"><a href="{% url 'signup' %}" class="nav-link">Signup</a></div>
+                        {% endif %}
+                    </div>
+                    <div class="header-select">
+                        <div class="select">
+                            <div class="EN">
+                                <img src="{% static 'img/GBR.png' %}" alt="en">
+                                <span>EN</span>
+                                <span class="arrow"></span>
+                            </div>
+                            <div class="select-list">
+                                <div class="RU"><img src="{% static 'img/RUS.png' %}" alt="ru"><span>RU</span></div>
+                                <div class="DE"><img src="{% static 'img/DEU.png' %}" alt="de"><span>DE</span></div>
+                                <div class="FR"><img src="{% static 'img/FRA.png' %}" alt="fr"><span>FR</span></div>
+                                <div class="ES"><img src="{% static 'img/ESP.png' %}" alt="el"><span>ES</span></div>
+                                <div class="EL"><img src="{% static 'img/GRC.png' %}" alt="el"><span>EL</span></div>
+                                <div class="IT"><img src="{% static 'img/ITA.png' %}" alt="es"><span>IT</span></div>
+                            </div>                           
+                        </div>
+                    </div>
+                    <div class="header__hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div> 
+        </div>       
+    </header>
+    <section class="menu-documents">
+        <div class="container">
+            <div class="menu-wrap">
+                <ul class="list-item">
+                    <li><a  href="/">Home</a></li>
+                    <li><a class="active-link" href="{% url 'create-certificate' %}">Create certificate</a></li>
+                    <li><a href="#">My certificates</a></li>
+                    <li><a href="#">Instructions</a></li>
+                </ul>
+            </div>
+            <div class="documents">
+                <div class="container">
+                    <div class="documents-title">To create a new certificate just click on the image with the price you are interested in</div>
+                    <div class="documents-wrap">
+                       <div class="documents-item">
+                           <a href="#"><img src="{% static 'img/sert-1.png' %}" alt="sertificate"></a>
+                       </div>
+                       <div class="documents-item">
+                        <a href="#"><img src="{% static 'img/sert-2.png' %}" alt="sertificate"></a>
+                        </div>
+                        <div class="documents-item">
+                            <a href="#"><img src="{% static 'img/sert-3.png' %}" alt="sertificate"></a>
+                        </div>
+                        <div class="documents-item">
+                            <a href="#"><img src="{% static 'img/sert-4.png' %}" alt="sertificate"></a>
+                        </div>
+                        <div class="documents-item">
+                            <a href="#"><img src="{% static 'img/sert-5.png' %}" alt="sertificate"></a>
+                        </div>
+                        <div class="documents-item">
+                            <a href="#"><img src="{% static 'img/sert-6.png' %}" alt="sertificate"></a>
+                        </div>
+                        <div class="documents-item">
+                            <a href="#"><img src="{% static 'img/sert-7.png' %}" alt="sertificate"></a>
+                        </div>
+                        <div class="documents-item">
+                            <a href="#"><img src="{% static 'img/sert-8.png' %}" alt="sertificate"></a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+     
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-wrap">
+                <div class="footer-adress">
+                    <span>АО MoCersts</span><br> 
+                    г. Новосибирск, 630007
+                    Железнодорожный район,
+                    ​Советская, 5​1 офис 506
+                </div>
+                <div class="footer-icon">
+                    <div class="icon"><a href="#"><img src="{% static 'img/twitter.png' %}" alt="social"></a></div>
+                    <div class="icon"><a href="#"><img src="{% static 'img/inst.png' %}" alt="social"></a></div>
+                    <div class="icon"><a href="#"><img src="{% static 'img/vk.png' %}" alt="social"></a></div>
+                    <div class="icon"><a href="#"><img src="{% static 'img/facebook.png' %}" alt="social"></a></div>
+                    <div class="icon"><a href="#"><img src="{% static 'img/youtube.png' %}" alt="social"></a></div>
+                    <div class="icon"><a href="#"><img src="{% static 'img/yum.png' %}" alt="social"></a></div>
+                </div>
+                <div class="footer-doc">Лицензия №1609<br>
+                    от 05 марта 2021 года</div>
+            </div>
+            <div class="footer-copyright">© 2021 СЧАСТЬЕ ЕСТЬ. и оно уже БЛИЗКО!!! MoCerts.com
+                Лицензия №1609
+            </div>
+        </div>
+    </footer>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
