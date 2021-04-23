@@ -21,6 +21,16 @@ body {
     color: #e7582b;
 
 }
+.logout-image{
+    width: 25px;
+    height: 25px;
+    color: #de3a47 !important;
+
+}
+.logout-image:hover{
+    color: #e7582b !important;
+    filter: hue-rotate(90deg);
+}
 .header-wrap-bg {
     width: 1200px;
     margin: 0 auto;
@@ -69,9 +79,10 @@ body {
 }
 .select .EN{
     display: flex;
-    justify-content: space-around;
+    margin-left: 37.5px;
     align-items: center;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-family: Arial, Helvetica, sans-serif;
     color: #ffffff;
     cursor: pointer;
@@ -108,7 +119,7 @@ body {
     display: inline-block;
 }
 .select-list .RU img,
-.select .EN img,
+
 .select .FR img,
 .select .ES img,
 .select .IT img,
@@ -120,7 +131,12 @@ body {
     display: block;
     margin-right: 5px;
 }
-
+.select .EN img{
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-right: 0;
+}
 .logo-content .text,
 .logo-content .money  {
     font-size: 28px;
