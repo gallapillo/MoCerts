@@ -5,6 +5,7 @@ from django import forms
 from django.utils import timezone
 from django.conf import settings
 from datetime import datetime
+
 from .names.names_generator import false_user
 import random
 from django.contrib.auth.models import User
@@ -30,6 +31,7 @@ class Account(models.Model):
         verbose_name='date joined', default=datetime.now())
     certificate_quantity = models.IntegerField(
         verbose_name='certificate quantity', default=0)
+
 
     def publish(self):
         self.date_joined = datetime.now()
@@ -67,6 +69,7 @@ class Certificate(models.Model):
     published_date = models.DateTimeField(
         blank=True, null=True, default=date_cert)
 
+
     def new_cert(self):
         date_cert = datetime.today()
         self.cert_num = date_cert.strftime("%d%m%y%H%M%f")
@@ -76,7 +79,7 @@ class Certificate(models.Model):
         self.user2 = false_user()
         self.user3 = false_user()
         self.published_date = datetime.today()
-
+        self.owner = Account.user
         new_cert = dict(cert_num=self.cert_num,
                         url=self.url,
                         nominal=self.nominal,
@@ -92,6 +95,12 @@ class Certificate(models.Model):
 
     def __str__(self):
         return f'Сертификат {self.number}'
+
+
+
+
+
+
 
 
 cert = Certificate()

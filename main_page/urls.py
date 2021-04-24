@@ -14,5 +14,6 @@ path('logout/', views.logoutUser, name='logout'),
     path('balance/', views.BalanceAdd, name='balance'),
     path('mycertificates/', views.MyCertificate, name='my-certificates'),
     path('instructions/', views.Instruction, name='instruction'),
-    path('create-certificate/', views.CreateCertificate, name='create-cert')
+    path('create-certificate/', views.CreateCertificate, name='create-cert'),
+    path('create-certificate2/', views.CreateCertificate2, name='create-cert2'),
 ]

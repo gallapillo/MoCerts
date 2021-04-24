@@ -1,13 +1,15 @@
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Certificate
 from django.views import View
 from django.views.generic import TemplateView
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib import messages
+
+from .forms import certificateForm, certificateForm2
 
 
 def main_page(request, *args, **kwargs):
@@ -67,8 +69,31 @@ def BalanceAdd(request):
 
 @login_required
 def CreateCertificate(request):
-    context = {}
+    form = certificateForm(request.POST or None)
+    certificate = Certificate()
+    context = {'form': form, 'certificate': certificate}
+    if request.method == 'POST':
+        if form.is_valid():
+            new_certificate = form.save(commit=False)
+            new_certificate.owner = request.user
+            new_certificate.save()
+            return HttpResponseRedirect('/')
     return render(request, 'CreateCert.html', context)
+
+
+@login_required
+def CreateCertificate2(request):
+    form = certificateForm2(request.POST or None)
+    certificate = Certificate()
+    context = {'form': form, 'certificate': certificate}
+    if request.method == 'POST':
+        if form.is_valid():
+            new_certificate = form.save(commit=False)
+            new_certificate.owner = request.user
+            new_certificate.save()
+            return HttpResponseRedirect('/')
+    return render(request, 'CreateCert2.html', context)
+
 
 def LoginPage(request):
     if request.user.is_authenticated:

@@ -9,10 +9,11 @@
                     <div class="documents-title">Вот данный сертификат</div>
                     <div class="row">
                         <div class="col-12">
-                            <img style="margin-top: 40px;margin-bottom: 80px; width: 630px; height: 450px;" class="rounded mx-auto d-block" src="{% static 'img/sertificate.webp' %}" alt="">
+                            <img style="margin-top: 40px;margin-bottom: 80px; width: 630px; height: 450px;" class="rounded mx-auto d-block" src="{% static 'img/sert-2.png' %}" alt="">
                             <form action="" method="POST">
                                 {% csrf_token %}
                                 <div style="text-align: center; margin-bottom: 90px;">{{ form.as_p }}<input type="submit" name="create cert"></div>
+                                {{ request.user }}
                                 <a href="#"><img style="margin-bottom: 60px;" class="rounded mx-auto d-block" src="{% static 'img/transfer.webp' %}" alt=""></a>
                             </form>
                         </div>
