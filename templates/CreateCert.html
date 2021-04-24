@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Create Certificate{% endblock %}
+{% load static %}
+{% block content %}
+    <section class="menu-documents">
+        <div class="container">
+            <div class="documents">
+                <div class="container">
+                    <div class="documents-title">Вот данный сертификат</div>
+                    <div class="row">
+                        <div class="col-12">
+                            <img style="margin-top: 40px;margin-bottom: 80px; width: 630px; height: 450px;" class="rounded mx-auto d-block" src="{% static 'img/sertificate.webp' %}" alt="">
+                            <a href="#"><img style="margin-bottom: 60px;" class="rounded mx-auto d-block" src="{% static 'img/transfer.webp' %}" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

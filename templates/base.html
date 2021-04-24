@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sertificat</title>
+    <title>{% block title %}{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'img/site.webmanifest' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="mask-icon" href="{% static 'img/safari-pinned-tab.svg' %}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
@@ -23,7 +25,7 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo">
-                        <img src="{% static 'img/logo.png' %}" alt="logo">
+                        <a href="/"><img src="{% static 'img/logo.png' %}" alt="logo"></a>
                     </div>
                     <div class="logo-content">
                         {% if request.user.is_authenticated %}
@@ -50,7 +52,7 @@
                                 <div class="ES"><img src="{% static 'img/ESP.png' %}" alt="el"><span></span></div>
                                 <div class="EL"><img src="{% static 'img/GRC.png' %}" alt="el"><span></span></div>
                                 <div class="IT"><img src="{% static 'img/ITA.png' %}" alt="es"><span></span></div>
-                            </div>                           
+                            </div>
                         </div>
                     </div>
                     <div class="header__hamburger">
@@ -59,59 +61,16 @@
                         <span></span>
                     </div>
                 </div>
-            </div> 
-        </div>       
-    </header>
-    <section class="menu-documents">
-        <div class="container">
-            <div class="menu-wrap">
-                <ul class="list-item">
-                    <li><a  href="/">Home</a></li>
-                    <li><a class="active-link" href="{% url 'create-certificate' %}">Create certificate</a></li>
-                    <li><a href="{% url 'my-certificates' %}" >My certificates</a></li>
-                    <li><a href="{% url 'instruction' %}">Instructions</a></li>
-                </ul>
-            </div>
-            <div class="documents">
-                <div class="container">
-                    <div class="documents-title">To create a new certificate just click on the image with the price you are interested in</div>
-                    <div class="documents-wrap">
-                       <div class="documents-item">
-                           <a href="{% url 'create-cert' %}"><img src="{% static 'img/sert-1.png' %}" alt="sertificate"></a>
-                       </div>
-                       <div class="documents-item">
-                        <a href="{% url 'create-cert' %}"><img src="{% static 'img/sert-2.png' %}" alt="sertificate"></a>
-                        </div>
-                        <div class="documents-item">
-                            <a href="{% url 'create-cert' %}"><img src="{% static 'img/sert-3.png' %}" alt="sertificate"></a>
-                        </div>
-                        <div class="documents-item">
-                            <a href="{% url 'create-cert' %}"><img src="{% static 'img/sert-4.png' %}" alt="sertificate"></a>
-                        </div>
-                        <div class="documents-item">
-                            <a href="{% url 'create-cert' %}"><img src="{% static 'img/sert-5.png' %}" alt="sertificate"></a>
-                        </div>
-                        <div class="documents-item">
-                            <a href="{% url 'create-cert' %}"><img src="{% static 'img/sert-6.png' %}" alt="sertificate"></a>
-                        </div>
-                        <div class="documents-item">
-                            <a href="{% url 'create-cert' %}"><img src="{% static 'img/sert-7.png' %}" alt="sertificate"></a>
-                        </div>
-                        <div class="documents-item">
-                            <a href="{% url 'create-cert' %}"><img src="{% static 'img/sert-8.png' %}" alt="sertificate"></a>
-                        </div>
-                    </div>
-                    
-                </div>
             </div>
         </div>
-    </section>
-     
+    </header>
+    {% block content %}
+    {% endblock content %}
     <footer class="footer">
         <div class="container">
             <div class="footer-wrap">
                 <div class="footer-adress">
-                    <span>АО MoCersts</span><br> 
+                    <span>АО MoCersts</span><br>
                     г. Новосибирск, 630007
                     Железнодорожный район,
                     ​Советская, 5​1 офис 506
@@ -132,7 +91,8 @@
             </div>
         </div>
     </footer>
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

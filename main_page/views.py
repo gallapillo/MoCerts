@@ -1,4 +1,5 @@
 from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Certificate
@@ -61,6 +62,13 @@ def BalanceAdd(request):
     context = {}
     return render(request, 'balanceAdd.html', context)
 
+
+
+
+@login_required
+def CreateCertificate(request):
+    context = {}
+    return render(request, 'CreateCert.html', context)
 
 def LoginPage(request):
     if request.user.is_authenticated:
