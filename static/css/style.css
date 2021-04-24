@@ -79,7 +79,7 @@ body {
 }
 .select .EN{
     display: flex;
-    margin-left: 37.5px;
+    margin-left: 45px;
     align-items: center;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -91,7 +91,7 @@ body {
 }
 .arrow{
     display: inline-block;
-    background: url(../img/arrow.png);
+    background: transparent;
     width: 15px;
     height: 15px;
     padding: 0;
@@ -99,10 +99,22 @@ body {
 .rotate {
     transform: rotate(180deg);
 }
-    
+.modal-custom{
+    width: 954px !important;
+    height: 650px !important;
+    text-align: center !important;
+    background: url(../img/background-modal.png) !important;
+}
 .select{
     width: 110px;
     height: 40px;
+}
+.blank::after{
+    content: '';
+    width: 26px;
+    height: 26px;
+    background-image: url(../img/Tel.png);
+    display: inline-block;
 }
 .select-list {
     align-items: center;

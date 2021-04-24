@@ -80,3 +80,12 @@ def LoginPage(request):
 
         context = {}
         return render(request, 'login.html', context)
+
+
+def MyCertificate(request):
+    context = {}
+    return render(request, 'Myserticates.html', context)
+
+def Instruction(request):
+    context = {}
+    return render(request, 'instructions.html',context)

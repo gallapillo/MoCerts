@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sertificat</title>
+    <title>Instructions</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'img/site.webmanifest' %}">
     <link rel="mask-icon" href="{% static 'img/safari-pinned-tab.svg' %}" color="#5bbad5">
@@ -20,7 +19,7 @@
 </head>
 <body>
     <header class="header">
-        <div class="header-wrap-bg"> 
+        <div class="header-wrap-bg">
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo">
@@ -51,7 +50,7 @@
                                 <div class="ES"><img src="{% static 'img/ESP.png' %}" alt="el"><span></span></div>
                                 <div class="EL"><img src="{% static 'img/GRC.png' %}" alt="el"><span></span></div>
                                 <div class="IT"><img src="{% static 'img/ITA.png' %}" alt="es"><span></span></div>
-                            </div>                           
+                            </div>
                         </div>
                     </div>
                     <div class="header__hamburger">
@@ -60,42 +59,33 @@
                         <span></span>
                     </div>
                 </div>
-            </div> 
-        </div>       
+            </div>
+        </div>
     </header>
-
-    <section class="menu">
+<section class="menu-documents">
         <div class="container">
             <div class="menu-wrap">
                 <ul class="list-item">
-                    <li class="menu-link"><a class="active-link" href="#">Home</a></li>
-                    <li class="menu-link"><a href="{% url 'create-certificate' %}">Create certificate</a></li>
-                    <li class="menu-link"><a href="{% url 'my-certificates' %}">My certificates</a></li>
-                    <li class="menu-link"><a href="{% url 'instruction' %}">Instructions</a></li>
+                    <li><a  href="/">Home</a></li>
+                    <li><a  href="{% url 'create-certificate' %}">Create certificate</a></li>
+                    <li><a class="active-link" href="{% url 'my-certificates' %}">My certificates</a></li>
+                    <li><a href="{% url 'instruction' %}">Instructions</a></li>
                 </ul>
             </div>
-            <div class="menu-content">
-                <div class="video-content">
-                    <iframe width="500" height="300" src="https://www.youtube.com/embed/p29YU2UZOnM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>   
+            <div class="documents">
+                <div class="container">
+                    <h1>Instructions Here</h1>
+
                 </div>
-                <div class="video-btn">
-                    <a class="btn-manual" data-fancybox data-src="#modal" href="javascript:;" class="callback">read manual</a>
-                    <a class="btn-instruction"  data-fancybox data-src="#modal2" href="javascript:;" class="callback">instructions</a>
-                </div>
-                <div class="modal modal-custom" id="modal" style="display: none;">
-		            <p>this is Manual</p>
-  	            </div>
-                 <div class="modal modal-custom" id="modal2" style="display: none;">
-		            <p>Instructions Here!</p>
-  	            </div>
             </div>
         </div>
     </section>
+
     <footer class="footer">
         <div class="container">
             <div class="footer-wrap">
                 <div class="footer-adress">
-                    <span>АО MoCersts</span><br> 
+                    <span>АО MoCersts</span><br>
                     г. Новосибирск, 630007
                     Железнодорожный район,
                     ​Советская, 5​1 офис 506
@@ -112,14 +102,11 @@
                     от 05 марта 2021 года</div>
             </div>
             <div class="footer-copyright">© 2021 СЧАСТЬЕ ЕСТЬ. и оно уже БЛИЗКО!!! MoCerts.com
-                Лицензия №1609                    
+                Лицензия №1609
             </div>
         </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-    <script src="{% static 'js/scrollpage.js' %}"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="{% static 'js/script.js' %}"></script>
-
 </body>
 </html>

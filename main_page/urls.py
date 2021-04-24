@@ -11,5 +11,7 @@ urlpatterns = [
     path('signup/', views.SignupPage, name='signup'),
     path('login/', views.LoginPage, name='login'),
 path('logout/', views.logoutUser, name='logout'),
-    path('balance/', views.BalanceAdd, name='balance')
+    path('balance/', views.BalanceAdd, name='balance'),
+    path('mycertificates/', views.MyCertificate, name='my-certificates'),
+    path('instructions/', views.Instruction, name='instruction')
 ]
