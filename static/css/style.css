@@ -89,6 +89,12 @@ body {
     position: relative;
     
 }
+.form-cert1{
+    width: 630px;
+    height: 450px;
+    background: url(../img/sert-1.png) no-repeat;
+    background-size: 100%; /* Современные браузеры */
+}
 .arrow{
     display: inline-block;
     background: transparent;
