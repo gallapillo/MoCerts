@@ -2,7 +2,7 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Certificate
+from .models import Certificate, Account
 from django.views import View
 from django.views.generic import TemplateView
 from django.contrib.auth.forms import UserCreationForm
@@ -85,13 +85,16 @@ def CreateCertificate(request):
 def CreateCertificate2(request):
     form = certificateForm2(request.POST or None)
     certificate = Certificate()
-    context = {'form': form, 'certificate': certificate}
+    owner = Account.objects.get(user=request.user)
+
     if request.method == 'POST':
         if form.is_valid():
             new_certificate = form.save(commit=False)
-            new_certificate.owner = request.user
+            new_certificate.owner = owner
             new_certificate.save()
             return HttpResponseRedirect('/')
+
+    context = {'form': form, 'certificate': certificate}
     return render(request, 'CreateCert2.html', context)
 
 

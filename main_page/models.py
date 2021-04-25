@@ -69,6 +69,8 @@ class Certificate(models.Model):
     published_date = models.DateTimeField(
         blank=True, null=True, default=date_cert)
 
+    owner = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name='Владелец Сертификата')
+
 
     def new_cert(self):
         date_cert = datetime.today()
@@ -79,7 +81,6 @@ class Certificate(models.Model):
         self.user2 = false_user()
         self.user3 = false_user()
         self.published_date = datetime.today()
-        self.owner = Account.user
         new_cert = dict(cert_num=self.cert_num,
                         url=self.url,
                         nominal=self.nominal,
