@@ -14,7 +14,7 @@ from django.conf import settings
 
 class Account(models.Model):
     '''Модель для пользователя'''
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     tlg_id = models.IntegerField(
         unique=True, name='telegram_id', null=True, blank=True, default=0)
     username = models.CharField(
@@ -23,15 +23,14 @@ class Account(models.Model):
         max_length=50, verbose_name='full name', default=None)
     phone = models.CharField(max_length=50, verbose_name='phone', blank=True)
     email = models.EmailField(max_length=50, verbose_name='email_field')
-    balance = models.DecimalField(
-        max_digits=6, decimal_places=1, verbose_name='balance', default=0)
+    balance = models.IntegerField(
+         verbose_name='balance', default=0)
     language_code = models.CharField(
         max_length=10, verbose_name='language code', default='en')
     date_joined = models.DateTimeField(
         verbose_name='date joined', default=datetime.now())
     certificate_quantity = models.IntegerField(
         verbose_name='certificate quantity', default=0)
-
 
     def publish(self):
         self.date_joined = datetime.now()

@@ -71,11 +71,16 @@ def BalanceAdd(request):
 def CreateCertificate(request):
     form = certificateForm(request.POST or None)
     certificate = Certificate()
+    owner = Account.objects.get(user=request.user)
+    owner_id = Account.objects.get(user=request.user.id)
     context = {'form': form, 'certificate': certificate}
     if request.method == 'POST':
         if form.is_valid():
             new_certificate = form.save(commit=False)
             new_certificate.owner = request.user
+            if owner_id.balance > 0:
+                owner_id.balance -= new_certificate.nominal
+                owner_id.save()
             new_certificate.save()
             return HttpResponseRedirect('/')
     return render(request, 'CreateCert.html', context)
