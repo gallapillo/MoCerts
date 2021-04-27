@@ -2,7 +2,8 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Certificate, Account
+from .models import Account
+from blog.models import Certificate_1
 from django.views import View
 from django.views.generic import TemplateView
 from django.contrib.auth.forms import UserCreationForm
@@ -21,7 +22,7 @@ def contacts(request):
 
 
 def certificates(request, *args, **kwargs):
-    cert = Certificate()
+    cert = Certificate_1()
     cert_num, url, nominal, user1, user2, user3, published_date = cert.new_cert()
     context = {'cert_num': cert_num, 'url': url, 'nominal': nominal,
                                                                       'user1': user1, 'user2': user2, 'user3': user3, 'data': published_date}
@@ -30,7 +31,7 @@ def certificates(request, *args, **kwargs):
 
 
 def new_cert(request, *args, **kwargs):
-    cert = Certificate()
+    cert = Certificate_1()
     cert_num = cert.new_cert()
     context = {'cert_num': cert_num}
     return render(request, 'sertificates.html',  context)
@@ -43,7 +44,7 @@ def blog(request):
 class About(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        cert = Certificate()
+        cert = Certificate_1()
         cert_num, url, nominal, user1, user2, user3, published_date = cert.new_cert()
         context['cert_num'] = cert_num
         return context
@@ -65,12 +66,10 @@ def BalanceAdd(request):
     return render(request, 'balanceAdd.html', context)
 
 
-
-
 @login_required
 def CreateCertificate(request):
     form = certificateForm(request.POST or None)
-    certificate = Certificate()
+    certificate = Certificate_1()
     owner = Account.objects.get(user=request.user)
     owner_id = Account.objects.get(user=request.user.id)
     context = {'form': form, 'certificate': certificate}
@@ -78,10 +77,17 @@ def CreateCertificate(request):
         if form.is_valid():
             new_certificate = form.save(commit=False)
             new_certificate.owner = request.user
+
             if owner_id.balance > 0:
                 owner_id.balance -= new_certificate.nominal
                 owner_id.save()
+
             new_certificate.save()
+            owner_id.certificate_quantity += 1
+            owner_id.cert_1 = new_certificate
+            owner.save()
+            owner_id.save()
+
             return HttpResponseRedirect('/')
     return render(request, 'CreateCert.html', context)
 
@@ -89,7 +95,7 @@ def CreateCertificate(request):
 @login_required
 def CreateCertificate2(request):
     form = certificateForm2(request.POST or None)
-    certificate = Certificate()
+    certificate = Certificate_1()
     owner = Account.objects.get(user=request.user)
 
     if request.method == 'POST':
@@ -100,7 +106,7 @@ def CreateCertificate2(request):
             return HttpResponseRedirect('/')
 
     context = {'form': form, 'certificate': certificate}
-    return render(request, 'CreateCert2.html', context)
+    return render(request, 'CreateCert.html', context)
 
 
 def LoginPage(request):
