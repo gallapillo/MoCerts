@@ -32,7 +32,7 @@ class Account(models.Model):
         verbose_name='date joined', default=datetime.now())
     certificate_quantity = models.IntegerField(
         verbose_name='certificate quantity', default=0)
-    cert_1 = models.OneToOneField(Certificate_1 ,on_delete=models.CASCADE, null=True,blank=True)
+    cert_1 = models.ManyToManyField(Certificate_1, null=True,blank=True)
 
     def publish(self):
         self.date_joined = datetime.now()

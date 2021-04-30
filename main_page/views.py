@@ -1,3 +1,7 @@
+from datetime import datetime
+import time
+import random
+
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -11,6 +15,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
 from .forms import certificateForm, certificateForm2
+from .names.names_generator import false_user
 
 
 def main_page(request, *args, **kwargs):
@@ -19,6 +24,7 @@ def main_page(request, *args, **kwargs):
 
 def contacts(request):
     return HttpResponse('<h2>Страница с контактами</h2>')
+
 
 
 def certificates(request, *args, **kwargs):
@@ -70,25 +76,125 @@ def BalanceAdd(request):
 def CreateCertificate(request):
     form = certificateForm(request.POST or None)
     certificate = Certificate_1()
+
+    time.sleep(1)
+
+    certificate1 = Certificate_1()
+    certificate1.user1 = false_user()
+    certificate1.user1_id = random.randint(1000, 10000000)
+    certificate1.user2 = false_user()
+    certificate1.user2_id = random.randint(1000, 10000000)
+    certificate1.user3 = false_user()
+    certificate1.user3_id = random.randint(1000, 10000000)
+    date_cert4 = datetime.today()
+    cert_num = date_cert4.strftime("%d%m%y%H%M%f")
+    certificate1.number = cert_num
+
+    time.sleep(2)
+
+    certificate2 = Certificate_1()
+    certificate2.user1 = false_user()
+    certificate2.user1_id = random.randint(1000, 10000000)
+    certificate2.user2 = false_user()
+    certificate2.user2_id = random.randint(1000, 10000000)
+    certificate2.user3 = false_user()
+    certificate2.user3_id = random.randint(1000, 10000000)
+    date_cert = datetime.today()
+    cert_num2 = date_cert.strftime("%d%m%y%H%M%f")
+    certificate2.number = cert_num2
+
+    time.sleep(4)
+
+    certificate3 = Certificate_1()
+    certificate3.user1 = false_user()
+    certificate3.user1_id = random.randint(1000, 10000000)
+    certificate3.user2 = false_user()
+    certificate3.user2_id = random.randint(1000, 10000000)
+    certificate3.user3 = false_user()
+    certificate3.user3_id = random.randint(1000, 10000000)
+    date_cert2 = datetime.today()
+    cert_num3 = date_cert2.strftime("%d%m%y%H%M%f")
+    certificate3.number = cert_num3
+
+    time.sleep(2)
+
+    certificate4 = Certificate_1()
+    certificate4.user1 = false_user()
+    certificate4.user1_id = random.randint(1000, 10000000)
+    certificate4.user2 = false_user()
+    certificate4.user2_id = random.randint(1000, 10000000)
+    certificate4.user3 = false_user()
+    certificate4.user3_id = random.randint(1000, 10000000)
+    date_cert3 = datetime.today()
+    cert_num4 = date_cert3.strftime("%d%m%y%H%M%f")
+    certificate4.number = cert_num4
+
+    time.sleep(4)
+
+    certificate5 = Certificate_1()
+    certificate5.user1 = false_user()
+    certificate5.user1_id = random.randint(1000, 10000000)
+    certificate5.user2 = false_user()
+    certificate5.user2_id = random.randint(1000, 10000000)
+    certificate5.user3 = false_user()
+    certificate5.user3_id = random.randint(1000, 10000000)
+    date_cert4 = datetime.today()
+    cert_num5 = date_cert4.strftime("%d%m%y%H%M%f")
+    certificate5.number = cert_num5
+
+    time.sleep(6)
+
     owner = Account.objects.get(user=request.user)
     owner_id = Account.objects.get(user=request.user.id)
+
+    certificate1.owner = request.user
+    certificate1.status = 'val3'
+
+    certificate2.owner = request.user
+    certificate2.status = 'val3'
+
+    certificate3.owner = request.user
+    certificate3.status = 'val3'
+
+    certificate4.owner = request.user
+    certificate4.status = 'val3'
+
+    certificate5.owner = request.user
+    certificate5.status = 'val3'
+
     context = {'form': form, 'certificate': certificate}
     if request.method == 'POST':
         if form.is_valid():
             new_certificate = form.save(commit=False)
             new_certificate.owner = request.user
 
+
             if owner_id.balance > 0:
                 owner_id.balance -= new_certificate.nominal
                 owner_id.save()
 
-            new_certificate.save()
-            owner_id.certificate_quantity += 1
-            owner_id.cert_1 = new_certificate
-            owner.save()
-            owner_id.save()
 
-            return HttpResponseRedirect('/')
+                new_certificate.status = 'val3'
+
+
+                certificate1.save()
+                certificate2.save()
+                certificate3.save()
+                certificate4.save()
+                certificate5.save()
+                owner_id.certificate_quantity += 5
+
+                owner_id.cert_1.add(certificate1)
+                owner_id.cert_1.add(certificate2)
+                owner_id.cert_1.add(certificate3)
+                owner_id.cert_1.add(certificate4)
+                owner_id.cert_1.add(certificate5)
+                owner.save()
+                owner_id.save()
+
+
+
+            return HttpResponseRedirect('/mycertificates/')
     return render(request, 'CreateCert.html', context)
 
 
@@ -129,6 +235,7 @@ def LoginPage(request):
         return render(request, 'login.html', context)
 
 
+@login_required
 def MyCertificate(request):
     context = {}
     return render(request, 'Myserticates.html', context)

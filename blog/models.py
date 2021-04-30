@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import CharField
 from django.utils import timezone
 from django.conf import settings
 from datetime import datetime
@@ -49,6 +50,14 @@ class Certificate_1(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name='Владелец Сертификата')
 
+    STATUS_CHOICES = (
+        ('val1', 'Отправлен'),
+        ('val2', 'Получен'),
+        ('val3', 'Оплачен'),
+        ('val4', 'Неотправлен'),
+    )
+
+    status = CharField(max_length=20, blank=True,choices=STATUS_CHOICES,default='val3',null=True)
 
     def new_cert(self):
         date_cert = datetime.today()
