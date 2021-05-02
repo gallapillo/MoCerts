@@ -2,6 +2,7 @@ from datetime import datetime
 import time
 import random
 
+from django.contrib.auth.models import User
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -14,7 +15,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib import messages
 
-from .forms import certificateForm, certificateForm2
+from .forms import certificateForm, certificateForm2, RegistrationForm
 from .names.names_generator import false_user
 
 
@@ -243,3 +244,30 @@ def MyCertificate(request):
 def Instruction(request):
     context = {}
     return render(request, 'instructions.html',context)
+
+class RegistrationView(View):
+
+    def get(self, request, *args, **kwargs):
+        form = RegistrationForm(request.POST or None)
+        context = {'form': form}
+        return render(request, 'registraion.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = RegistrationForm(request.POST or None)
+        if form.is_valid():
+            new_user = form.save(commit=False)
+            new_user.username = form.cleaned_data['username']
+            new_user.email = form.cleaned_data['email']
+            new_user.save()
+            new_user.set_password(form.cleaned_data['password'])
+            new_user.save()
+            Account.objects.create(
+                user=new_user,
+                phone=form.cleaned_data['phone'],
+                full_name=form.cleaned_data['full_name'],
+            )
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            login(request, user)
+            return HttpResponseRedirect('/')
+        context = {'form': form}
+        return render(request, 'registraion.html', context)

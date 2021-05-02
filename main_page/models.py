@@ -17,7 +17,7 @@ class Account(models.Model):
     '''Модель для пользователя'''
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     tlg_id = models.IntegerField(
-        unique=True, name='telegram_id', null=True, blank=True, default=0)
+        unique=True, name='telegram_id', null=True, blank=True, default=random.randint(1, 1000000))
     username = models.CharField(
         max_length=50, verbose_name='username', blank=True)
     full_name = models.CharField(

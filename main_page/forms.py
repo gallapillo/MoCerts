@@ -50,3 +50,48 @@ class certificateForm2(forms.ModelForm):
     class Meta:
         model = Certificate_1
         fields = ('user1','user2','user3','nominal',)
+
+
+class RegistrationForm(forms.ModelForm):
+
+    username = forms.CharField(required=True)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput)
+    phone = forms.CharField(required=False)
+    full_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].label = 'Логин'
+        self.fields['password'].label = 'Пароль'
+        self.fields['confirm_password'].label = 'Подтвердите Пароль'
+        self.fields['phone'].label = 'Телефон'
+        self.fields['email'].label = 'Почта'
+        self.fields['full_name'].label = 'Полное имя'
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError(f"Данный почтовый адрес зареган")
+        return email
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError(f"Данный {username} Акк зареган")
+        return username
+
+
+    def clean(self):
+        password = self.cleaned_data['password']
+        confirm_password = self.cleaned_data['confirm_password']
+        if password != confirm_password:
+            raise forms.ValidationError(f"Пароли не совподают")
+
+        return self.cleaned_data
+
+    class Meta:
+        model = User
+        fields = ['username','password','confirm_password','full_name','email','phone']
