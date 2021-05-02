@@ -1,13 +1,22 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: "mon" !important;
-}
+
 @font-face {
     font-family: "mon" !important;
     font-weight: 400;
-    src: url('../fonts/mon.ttf') format('truetype');
+    src: url(../fonts/mon.ttf) format('truetype');
   }
+@font-face {
+    font-family: 'mon_amour_onemedium';
+    src: url(../fonts/mon-webfont.woff2) format('woff2'),
+         url(../fonts/mon-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: mon_amour_onemedium !important;
+}
 .container {
     width: 1200px;
     margin: 0 auto;
@@ -110,6 +119,12 @@ body {
     height: 650px !important;
     text-align: center !important;
     background: url(../img/background-modal.png) !important;
+}
+.modal-custom2{
+    width: 650px !important; /*650px !important;*/
+    height: 954px !important;
+    text-align: center !important;
+    background: url(../img/background-modal_fliped.png) !important;
 }
 .select{
     width: 110px;

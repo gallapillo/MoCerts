@@ -15,12 +15,42 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib import messages
 
-from .forms import certificateForm, certificateForm2, RegistrationForm
+from .forms import certificateForm, certificateForm2, RegistrationForm, LoginForm
 from .names.names_generator import false_user
 
 
 def main_page(request, *args, **kwargs):
-    return render(request, 'index.html', {})
+    form_user = RegistrationForm(request.POST or None)
+    if request.method == 'POST' and 'btn-register' in request.POST:#btn-register
+        new_user = form_user.save(commit=False)
+        new_user.username = form_user.cleaned_data['username']
+        new_user.email = form_user.cleaned_data['email']
+        new_user.save()
+        new_user.set_password(form_user.cleaned_data['password'])
+        new_user.save()
+        Account.objects.create(
+            user=new_user,
+            phone=form_user.cleaned_data['phone'],
+            full_name=form_user.cleaned_data['full_name'],
+        )
+        user = authenticate(username=form_user.cleaned_data['username'], password=form_user.cleaned_data['password'])
+        login(request, user)
+        return HttpResponseRedirect('new_cert/')
+
+    form_login = LoginForm(request.POST or None)
+    if request.method == 'POST' and 'btn-login' in request.POST:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('main_page')
+        else:
+            messages.info(request, 'Username OR password is incorrect')
+    context = {'form_user': form_user,'form_login': form_login}
+    return render(request, 'index.html', context)
 
 
 def contacts(request):
@@ -65,7 +95,7 @@ def SignupPage(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect('login')
+    return HttpResponseRedirect('/')
 
 
 def BalanceAdd(request):

@@ -15,19 +15,19 @@ class certificateForm(forms.ModelForm):
 
     user1 = CharField(label='1.', widget=TextInput(
         attrs={'class': 'form-input', 'placeholder': 'Имя 1','value': false_user(),
-               'style': 'padding-top:3px; padding-bottom:6px; padding-left-20px; padding-right:52px; margin-top:220px; margin-right:300px; font-size: 16px; line-height: 20px;'}))
+               'style': 'background-color: transparent;  border: none; color: #fff; padding-top:3px; padding-bottom:6px; padding-left-20px; padding-right:52px; margin-top:220px; margin-right:300px; font-size: 16px; line-height: 20px;'}))
     user2 = CharField(label='2.', widget=TextInput(
         attrs={'class': 'form-input', 'placeholder': 'Имя 2','value': false_user(),
-               'style': 'padding-top:5px; padding-bottom:5px; padding-left-20px; padding-right:52px; margin-bottom:-8px;  font-size: 16px; margin-right:220px; line-height: 20px;'}))
+               'style': 'background-color: transparent; border: none; color: #fff; padding-top:5px; padding-bottom:5px; padding-left-20px; padding-right:52px; margin-bottom:-8px;  font-size: 16px; margin-right:220px; line-height: 20px;'}))
     user3 = CharField(label='3', widget=TextInput(
         attrs={'class': 'form-input', 'placeholder': 'Имя 3','value': false_user(),
-               'style': 'padding-top:5px; padding-bottom:5px; padding-left-20px; padding-right:92px; font-size: 14px; margin-right:80px; line-height: 20px;'}))
+               'style': 'background-color: transparent;  border: none; color: #fff; padding-top:5px; padding-bottom:5px; padding-left-20px; padding-right:92px; font-size: 14px; margin-right:80px; line-height: 20px;'}))
     nominal = IntegerField(widget=TextInput(
         attrs={'class': 'form-input', 'placeholder': 'Цена',
-               'style':'display: none; padding:10px 25px; font-size: 16px; line-height: 20px;','value': 1,'readonly':''}))
+               'style':'background-color: transparent; display: none; padding:10px 25px; font-size: 16px; line-height: 20px;','value': 1,'readonly':''}))
     number = IntegerField(widget=TextInput(
         attrs={'class': 'form-input',
-               'style': 'padding:10px 25px; font-size: 16px; line-height: 20px;','value': cert_num,
+               'style': 'background-color: transparent;  border: none; color: #fff; padding:10px 25px; font-size: 16px; line-height: 20px;','value': cert_num,
                'readonly': ''}))
     class Meta:
         model = Certificate_1
@@ -95,3 +95,30 @@ class RegistrationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username','password','confirm_password','full_name','email','phone']
+
+
+
+class LoginForm(forms.ModelForm):
+
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].label = 'Логин'
+        self.fields['password'].label = 'Пароль'
+
+    def clean(self):
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
+        if not User.objects.filter(username=username).exists():
+            raise forms.ValidationError(f'Пользователь с логином {username} не найден в системе. ')
+        user = User.objects.filter(username=username).first()
+        if user:
+            if not user.check_password(password):
+                raise forms.ValidationError('Неверный пароль')
+
+        return self.cleaned_data
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']

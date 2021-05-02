@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
+    <link href="https://allfont.ru/allfont.css?fonts=mon-amour-two-medium" rel="stylesheet" type="text/css" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
@@ -14,7 +15,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'img/site.webmanifest' %}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
     <link rel="mask-icon" href="{% static 'img/safari-pinned-tab.svg' %}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
@@ -35,8 +36,8 @@
                         <div class="money"><a class="nav-link" href="{% url 'balance' %}">{{ request.user.account.balance }}$</a>
                         <div class="text"><a class="" style="margin-left: 10px; height: 50px;" href="{% url 'logout' %}"><img class="logout-image" src="{% static 'img/Logout1.png' %}" alt=""></a></div></div>
                         {% else %}
-                            <div class="text"><a href="{% url 'login' %}" class="nav-link">Login</a></div>
-                            <div class="text"><a href="{% url 'signup' %}" class="nav-link">Signup</a></div>
+                             <div class="text"><a class="nav-link" data-fancybox data-src="#modal_login" href="javascript:;" class="callback">Login</a></div>
+                            <div class="text"><a class="nav-link" data-fancybox data-src="#modal_signup" href="javascript:;" class="callback" >Signup</a></div>
                         {% endif %}
                     </div>
                     <div class="header-select">
@@ -61,6 +62,42 @@
                         <span></span>
                     </div>
                 </div>
+            </div>
+        </div>
+            <div class="modal modal-custom modal-custom2" id="modal_login" style="display: none;">
+		            <form method="POST" action="">
+						{% csrf_token %}
+                            <form method="POST" action="">
+						{% csrf_token %}
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+
+							<input type="text" name="username" placeholder="Username..." class="form-control">
+						</div>
+
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+
+								<input type="password" name="password" placeholder="Password..." class="form-control" >
+						</div>
+
+							<div class="d-flex justify-content-center mt-3 login_container">
+				 				<input class="btn login_btn" type="submit" value="Login" name="btn-login">
+				   			</div>
+					</form>
+					</form>
+            </div>
+        <div class="modal modal-custom modal-custom2" id="modal_signup" style="display: none;">
+            <div class="container">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form_user }}
+                    <button type="submit" name="btn-register">Register</button>
+                </form>
             </div>
         </div>
     </header>

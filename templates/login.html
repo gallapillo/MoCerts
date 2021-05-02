@@ -26,7 +26,7 @@
                         <div class="money"><a class="nav-link" href="{% url 'balance' %}">{{ request.user.account.balance }}$</a>
                         <div class="text"><a class="" style="margin-left: 10px; height: 50px;" href="{% url 'logout' %}"><img class="logout-image" src="{% static 'img/Logout1.png' %}" alt=""></a></div></div>
                         {% else %}
-                            <div class="text"><a href="{% url 'login' %}" class="nav-link">Login</a></div>
+                            <div class="text"><a class="nav-link" data-fancybox data-src="#modal" href="javascript:;" class="callback">Login</a></div>
                             <div class="text"><a href="{% url 'signup' %}" class="nav-link">Signup</a></div>
                         {% endif %}
                     </div>
