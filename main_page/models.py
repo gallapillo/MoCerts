@@ -15,9 +15,17 @@ from django.conf import settings
 
 class Account(models.Model):
     '''Модель для пользователя'''
+
+    GENDER_CHOICES = (
+        ('val1', 'Мужской'),
+        ('val2', 'Женский'),
+        ('val3', 'Другой'),
+    )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     tlg_id = models.IntegerField(
         unique=True, name='telegram_id', null=True, blank=True, default=random.randint(1, 1000000))
+    gender= models.CharField(max_length=12, choices=GENDER_CHOICES, default='val3')
     username = models.CharField(
         max_length=50, verbose_name='username', blank=True)
     full_name = models.CharField(
@@ -32,7 +40,7 @@ class Account(models.Model):
         verbose_name='date joined', default=datetime.now())
     certificate_quantity = models.IntegerField(
         verbose_name='certificate quantity', default=0)
-    cert_1 = models.ManyToManyField(Certificate_1, null=True,blank=True)
+    cert_1 = models.ManyToManyField(Certificate_1,blank=True)
 
     def publish(self):
         self.date_joined = datetime.now()

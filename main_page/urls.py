@@ -9,8 +9,8 @@ urlpatterns = [
 
     path('about/', views.About, name='about'),
     path('signup/', views.RegistrationView.as_view(), name='signup'),
-    path('login/', views.LoginPage, name='login'),
-path('logout/', views.logoutUser, name='logout'),
+    path('login/', views.LoginView.as_view(), name='login'),
+    path('logout/', views.logoutUser, name='logout'),
     path('balance/', views.BalanceAdd, name='balance'),
     path('mycertificates/', views.MyCertificate, name='my-certificates'),
     path('instructions/', views.Instruction, name='instruction'),

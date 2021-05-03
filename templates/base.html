@@ -36,8 +36,8 @@
                         <div class="money"><a class="nav-link" href="{% url 'balance' %}">{{ request.user.account.balance }}$</a>
                         <div class="text"><a class="" style="margin-left: 10px; height: 50px;" href="{% url 'logout' %}"><img class="logout-image" src="{% static 'img/Logout1.png' %}" alt=""></a></div></div>
                         {% else %}
-                             <div class="text"><a class="nav-link" data-fancybox data-src="#modal_login" href="javascript:;" class="callback">Login</a></div>
-                            <div class="text"><a class="nav-link" data-fancybox data-src="#modal_signup" href="javascript:;" class="callback" >Signup</a></div>
+                             <div class="text"><a class="nav-link" href="{% url 'login' %}">Login</a></div>
+                            <div class="text"><a class="nav-link" href="{% url 'signup' %}" >Signup</a></div>
                         {% endif %}
                     </div>
                     <div class="header-select">
@@ -66,40 +66,26 @@
         </div>
             <div class="modal modal-custom modal-custom2" id="modal_login" style="display: none;">
 		            <form method="POST" action="">
-						{% csrf_token %}
-                            <form method="POST" action="">
+
 						{% csrf_token %}
 						<div class="input-group mb-3">
-							<div class="input-group-append">
-								<span class="input-group-text"><i class="fas fa-user"></i></span>
-							</div>
-
-							<input type="text" name="username" placeholder="Username..." class="form-control">
-						</div>
-
-						<div class="input-group mb-2">
-							<div class="input-group-append">
-								<span class="input-group-text"><i class="fas fa-key"></i></span>
-							</div>
-
-								<input type="password" name="password" placeholder="Password..." class="form-control" >
-						</div>
-
+							{{ form_login.as_p }}
 							<div class="d-flex justify-content-center mt-3 login_container">
-				 				<input class="btn login_btn" type="submit" value="Login" name="btn-login">
+                                <button class="btn login_btn" type="submit" value="Login" name="btn-login">Login</button>
 				   			</div>
 					</form>
-					</form>
             </div>
-        <div class="modal modal-custom modal-custom2" id="modal_signup" style="display: none;">
-            <div class="container">
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    {{ form_user }}
-                    <button type="submit" name="btn-register">Register</button>
-                </form>
+            <div class="modal modal-custom modal-custom2" id="modal_login" style="display: none;">
+                    <form method="POST" action="">
+
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            {{ form_user }}
+                            <div class="d-flex justify-content-center mt-3 login_container">
+                                <button class="btn login_btn" type="submit" value="Register" name="btn-register">Register</button>
+                            </div>
+                    </form>
             </div>
-        </div>
     </header>
     {% block content %}
     {% endblock content %}

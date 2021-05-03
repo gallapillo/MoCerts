@@ -1,7 +1,7 @@
 from datetime import datetime
 import time
 import random
-
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -20,36 +20,26 @@ from .names.names_generator import false_user
 
 
 def main_page(request, *args, **kwargs):
-    form_user = RegistrationForm(request.POST or None)
-    if request.method == 'POST' and 'btn-register' in request.POST:#btn-register
-        new_user = form_user.save(commit=False)
-        new_user.username = form_user.cleaned_data['username']
-        new_user.email = form_user.cleaned_data['email']
-        new_user.save()
-        new_user.set_password(form_user.cleaned_data['password'])
-        new_user.save()
-        Account.objects.create(
-            user=new_user,
-            phone=form_user.cleaned_data['phone'],
-            full_name=form_user.cleaned_data['full_name'],
-        )
-        user = authenticate(username=form_user.cleaned_data['username'], password=form_user.cleaned_data['password'])
-        login(request, user)
-        return HttpResponseRedirect('new_cert/')
+   # form_login = LoginForm(request.POST or None)
+    #form_user = RegistrationForm(request.POST or None)
+    #if not form_login.is_valid():
+        #pass
 
-    form_login = LoginForm(request.POST or None)
-    if request.method == 'POST' and 'btn-login' in request.POST:
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+    #if request.POST.get('button') == 'Login':
+        #username = form_login.cleaned_data['username']
+        #password = form_login.cleaned_data['password']
+        # = authenticate(username=username, password=password)
+        #if user:
+           # login(request, user)
+            #return HttpResponseRedirect('/')
 
-        user = authenticate(request, username=username, password=password)
+    #if not form_login.is_valid() and form_user.is_valid() and 'btn-register' in request.POST:#btn-register
+    #if form_user.is_valid()  and 'btn-register' in request.POST:
 
-        if user is not None:
-            login(request, user)
-            return redirect('main_page')
-        else:
-            messages.info(request, 'Username OR password is incorrect')
-    context = {'form_user': form_user,'form_login': form_login}
+    #Login
+    #if not form_user.is_valid() and form_login.is_valid() and 'btn-login' in request.POST:
+
+    context = {}
     return render(request, 'index.html', context)
 
 
@@ -247,22 +237,19 @@ def CreateCertificate2(request):
 
 
 def LoginPage(request):
+
+    form = LoginForm(request.POST or None)
     if request.user.is_authenticated:
         return redirect('main_page')
     else:
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            login(request, user)
+            return HttpResponseRedirect('/')
 
-            user = authenticate(request, username=username, password=password)
-
-            if user is not None:
-                login(request, user)
-                return redirect('main_page')
-            else:
-                messages.info(request, 'Username OR password is incorrect')
-
-        context = {}
+        context = {'form': form}
         return render(request, 'login.html', context)
 
 
@@ -274,6 +261,26 @@ def MyCertificate(request):
 def Instruction(request):
     context = {}
     return render(request, 'instructions.html',context)
+
+class LoginView(View):
+
+    def get(self, request, *args, **kwargs):
+        form = LoginForm(request.POST or None)
+        context = {'form': form}
+        return render(request, 'login.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = LoginForm(request.POST or None)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+                return HttpResponseRedirect('/')
+
+        context = {'form': form}
+        return render(request, 'login.html', context)
 
 class RegistrationView(View):
 

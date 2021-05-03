@@ -121,8 +121,14 @@ body {
     background: url(../img/background-modal.png) !important;
 }
 .modal-custom2{
+    width: 585px !important; /*650px !important;*/
+    height: 885.6px !important;
+    text-align: center !important;
+    background: url(../img/background-modal_fliped.png) !important;
+}
+.modal-custom3{
     width: 650px !important; /*650px !important;*/
-    height: 954px !important;
+    height:954px !important;
     text-align: center !important;
     background: url(../img/background-modal_fliped.png) !important;
 }

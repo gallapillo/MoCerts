@@ -54,12 +54,25 @@ class certificateForm2(forms.ModelForm):
 
 class RegistrationForm(forms.ModelForm):
 
-    username = forms.CharField(required=True)
-    confirm_password = forms.CharField(widget=forms.PasswordInput)
-    password = forms.CharField(widget=forms.PasswordInput)
-    phone = forms.CharField(required=False)
-    full_name = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
+    username = forms.CharField(required=True,widget=TextInput(attrs={
+        'style': 'padding 12px; font-size:16px; ', 'placeholder': 'Login'
+    }))
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'style': 'padding 12px; font-size:16px; ', 'placeholder': 'Password'
+    }))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'style': 'padding 12px; font-size:16px; ', 'placeholder': 'Password'
+    }))
+    phone = forms.CharField(required=False,widget=forms.NumberInput(attrs={
+        'style': 'padding 12px; font-size:16px; ', 'placeholder': '+7 (900) ___ - __ - __',
+        'min' : '0',
+    }))
+    full_name = forms.CharField(required=True,widget=TextInput(attrs={
+        'style': 'padding 12px; font-size:16px; ', 'placeholder': 'Full Name'
+    }))
+    email = forms.EmailField(required=True,widget=forms.EmailInput(attrs={
+        'style': 'padding 12px; font-size:16px; ', 'placeholder': 'Email'
+    }))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -117,8 +130,10 @@ class LoginForm(forms.ModelForm):
             if not user.check_password(password):
                 raise forms.ValidationError('Неверный пароль')
 
+
         return self.cleaned_data
 
     class Meta:
         model = User
         fields = ['username', 'password']
+
