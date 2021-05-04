@@ -9,6 +9,14 @@
     </style>
     <section class="menu-documents">
         <div class="container">
+            <div class="menu-wrap">
+                <ul class="list-item">
+                    <li><a  href="/">Home</a></li>
+                    <li><a  href="{% url 'create-certificate' %}">Create certificate</a></li>
+                    <li><a class="active-link" href="{% url 'my-certificates' %}">My certificates</a></li>
+                    <li><a href="{% url 'instruction' %}">Instructions</a></li>
+                </ul>
+            </div>
             <div class="documents">
                 <div class="container">
                     <div class="documents-title">Вот данный сертификат</div>
