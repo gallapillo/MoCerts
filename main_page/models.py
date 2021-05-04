@@ -24,14 +24,14 @@ class Account(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     tlg_id = models.IntegerField(
-        unique=True, name='telegram_id', null=True, blank=True, default=random.randint(1, 1000000))
-    gender= models.CharField(max_length=12, choices=GENDER_CHOICES, default='val3')
+         name='telegram_id', null=True, blank=True, default=None)
+    gender= models.CharField(max_length=12, choices=GENDER_CHOICES,blank=True,null=True, verbose_name="Пол",default=None)
     username = models.CharField(
-        max_length=50, verbose_name='username', blank=True)
+        max_length=50, verbose_name='username', blank=True,default=user)
     full_name = models.CharField(
         max_length=50, verbose_name='full name', default=None)
     phone = models.CharField(max_length=50, verbose_name='phone', blank=True)
-    email = models.EmailField(max_length=50, verbose_name='email_field')
+    email = models.EmailField(max_length=50, verbose_name='email_field',null=True, blank=True, default=None)
     balance = models.IntegerField(
          verbose_name='balance', default=0)
     language_code = models.CharField(
@@ -47,7 +47,7 @@ class Account(models.Model):
         self.save()
 
     def __str__(self):
-        return f'Пользователи {self.username}: date({self.date_joined})'
+        return f'Пользователи {self.user}: date({self.date_joined})'
 
 
 

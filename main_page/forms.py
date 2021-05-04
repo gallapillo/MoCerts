@@ -70,7 +70,7 @@ class RegistrationForm(forms.ModelForm):
     full_name = forms.CharField(required=True,widget=TextInput(attrs={
         'style': 'padding 12px; font-size:16px; ', 'placeholder': 'Full Name'
     }))
-    email = forms.EmailField(required=True,widget=forms.EmailInput(attrs={
+    email = forms.EmailField(required=False,widget=forms.EmailInput(attrs={
         'style': 'padding 12px; font-size:16px; ', 'placeholder': 'Email'
     }))
 
